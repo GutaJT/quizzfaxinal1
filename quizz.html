@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+
+<style>
+.imagens-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.imagem-pergunta {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url("fundo.png") center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.quiz-container {
+    width: 820px;
+    max-width: 95%;
+    background: rgba(0, 0, 0, 0.88);
+    padding: 45px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+}
+
+.page { display: none; }
+.active { display: block; }
+
+.start-btn {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    background: #0077ff;
+    color: white;
+}
+
+.question {
+    font-size: 21px;
+    margin-bottom: 25px;
+}
+
+.question-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    margin-bottom: 25px;
+    border-radius: 10px;
+}
+
+button.option {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #2c2c2c;
+    color: white;
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    display: none;
+}
+
+.proximo-btn {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background: #0055aa;
+    color: white;
+    display: none;
+}
+
+#inicio {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#inicio.active {
+    display: flex;
+}
+
+
+.titulo-quiz {
+    margin-bottom: 10px;
+}
+
+.nome-jogo {
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.botao-iniciar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: none;
+    font-size: 18px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 50px;
+    transition: 0.3s;
+}
+
+.botao-iniciar:hover {
+    background-color: #0d47a1;
+    transform: scale(1.05);
+}
+
+.creditos {
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    .quiz-container {
+        width: 95%;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    button.option {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .imagem-pergunta {
+        width: 100%;
+        height: auto;
+    }
+
+    .botao-iniciar {
+        width: 120px;
+        height: 120px;
+        font-size: 16px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+
+
+
+<!-- TELA INICIAL -->
+<div id="inicio" class="page active">
+
+    <h2 class="titulo-quiz">Quiz</h2>
+
+    <h1 class="nome-jogo">
+        Patrimônio em jogo: Desvendando Faxinal do Soturno/RS
+    </h1>
+
+    <button class="botao-iniciar" onclick="mudarPagina('p1')">
+        Iniciar
+    </button>
+
+    <div class="creditos">
+        <p><strong>Fonte das Imagens e das questões:</strong> Fabiane Lenz Cassol</p>
+        <p><strong>Desenvolvido por:</strong> Gustavo Tanscheit</p>
+    </div>
+
+</div>
+
+
+<!-- PERGUNTA 1 -->
+<div id="p1" class="page">
+    <div class="question">1. Que território o mapa em destaque representa?</div>
+    <img src="pergunta1.png" class="question-img">
+    <button class="option" onclick="responder(1,'A',this)">Brasil</button>
+    <button class="option" onclick="responder(1,'B',this)">Rio Grande do Sul</button>
+    <button class="option" onclick="responder(1,'C',this)">Quarta Colônia</button>
+    <button class="option" onclick="responder(1,'D',this)">Faxinal do Soturno</button>
+    <div id="resultado1" class="resultado"></div>
+    <button id="proximo1" class="proximo-btn" onclick="mudarPagina('p2')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 2 -->
+<div id="p2" class="page">
+    <div class="question">2. “A Quarta Colônia é formada por ______ municípios e encontra-se na região ________ do estado do Rio Grande do Sul”.</div>
+    <button class="option" onclick="responder(2,'A',this)">Oito - leste</button>
+    <button class="option" onclick="responder(2,'B',this)">Nove - central</button>
+    <button class="option" onclick="responder(2,'C',this)">Nove - oeste</button>
+    <button class="option" onclick="responder(2,'D',this)">Oito - sul</button>
+    <div id="resultado2" class="resultado"></div>
+    <button id="proximo2" class="proximo-btn" onclick="mudarPagina('p3')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 3 -->
+<div id="p3" class="page">
+    <div class="question">3. Para um território considerado “geoparque”, é preciso a garantia de:</div>
+    <button class="option" onclick="responder(3,'A',this)">desenvolvimento de práticas sustentáveis, somente;</button>
+    <button class="option" onclick="responder(3,'B',this)">preservação de seu patrimônio cultural, apenas;</button>
+    <button class="option" onclick="responder(3,'C',this)">conservação de seu patrimônio natural, somente;</button>
+    <button class="option" onclick="responder(3,'D',this)">preservação de seu patrimônio cultural e natural em prol do desenvolvimento sustentável da comunidade.</button>
+    <div id="resultado3" class="resultado"></div>
+    <button id="proximo3" class="proximo-btn" onclick="mudarPagina('p4')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 4 -->
+<div id="p4" class="page">
+    <div class="question">4. Instituições que trabalharam para que a região da Quarta Colônia se tornasse um geoparque:</div>
+    <button class="option" onclick="responder(4,'A',this)">CONDESUS e UFSM;</button>
+    <button class="option" onclick="responder(4,'B',this)">UFSM, somente;</button>
+    <button class="option" onclick="responder(4,'C',this)">CONDESUS, apenas;</button>
+    <button class="option" onclick="responder(4,'D',this)">CONDESUS, UFSM e a Quarta Colônia.</button>
+    <div id="resultado4" class="resultado"></div>
+    <button id="proximo4" class="proximo-btn" onclick="mudarPagina('p5')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 5 -->
+<div id="p5" class="page">
+    <div class="question">5. A região da Quarta Colônia tornou-se um geoparque no ano de:</div>
+    <button class="option" onclick="responder(5,'A',this)">2021;</button>
+    <button class="option" onclick="responder(5,'B',this)">2022;</button>
+    <button class="option" onclick="responder(5,'C',this)">2023;</button>
+    <button class="option" onclick="responder(5,'D',this)">2024.</button>
+    <div id="resultado5" class="resultado"></div>
+    <button id="proximo5" class="proximo-btn" onclick="mudarPagina('p6')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 6 -->
+<div id="p6" class="page">
+    <div class="question">6. O Quarta Colônia Geoparque Mundial UNESCO apresenta:</div>
+    <button class="option" onclick="responder(6,'A',this)">marcas - Triássico - 200 milhões de anos;</button>
+    <button class="option" onclick="responder(6,'B',this)">fósseis - Triássico - 230 milhões de anos;</button>
+    <button class="option" onclick="responder(6,'C',this)">marcas - Triássico - 100 milhões de anos;</button>
+    <button class="option" onclick="responder(6,'D',this)">fósseis - Triássico - 50 milhões de anos.</button>
+    <div id="resultado6" class="resultado"></div>
+    <button id="proximo6" class="proximo-btn" onclick="mudarPagina('p7')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 7 -->
+<div id="p7" class="page">
+    <div class="question">7. O que significa patrimônio cultural?</div>
+    <button class="option" onclick="responder(7,'A',this)">Conjunto de riquezas acumuladas ao longo dos tempos por um povo;</button>
+    <button class="option" onclick="responder(7,'B',this)">Conjunto de prédios, museus e construções antigas de uma cidade;</button>
+    <button class="option" onclick="responder(7,'C',this)">Conjunto de plantas e animais de uma região;</button>
+    <button class="option" onclick="responder(7,'D',this)">Conjunto de manifestações culturais ligadas à história, memória e identidade de um território e seu povo.</button>
+    <div id="resultado7" class="resultado"></div>
+    <button id="proximo7" class="proximo-btn" onclick="mudarPagina('p8')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 8 -->
+<div id="p8" class="page">
+    <div class="question">8. Quais são os principais povos que auxiliaram na formação do patrimônio cultural da Quarta Colônia e, consequentemente, de Faxinal do Soturno?</div>
+    <button class="option" onclick="responder(8,'A',this)">povos originários, portugueses, espanhóis, italianos, argentinos e paraguaios;</button>
+    <button class="option" onclick="responder(8,'B',this)">povos originários, portugueses, espanhóis, africanos, italianos e uruguaios;</button>
+    <button class="option" onclick="responder(8,'C',this)">povos originários, portugueses, espanhóis, africanos, alemães e italianos;</button>
+    <button class="option" onclick="responder(8,'D',this)">povos originários, africanos, italianos, alemães, argentinos e uruguaios.</button>
+    <div id="resultado8" class="resultado"></div>
+<button id="proximo8" class="proximo-btn" onclick="mudarPagina('p9')">
+    Próxima
+</button>
+
+</div>
+
+<!-- PERGUNTA 9 -->
+<div id="p9" class="page">
+    <div class="question">
+        9. A partir de que ano iniciou a chegada dos primeiros imigrantes italianos na região?
+    </div>
+    <button class="option" onclick="responder(9, 'A', this)">1877;</button>
+    <button class="option" onclick="responder(9, 'B', this)">1787;</button>
+    <button class="option" onclick="responder(9, 'C', this)">1778;</button>
+    <button class="option" onclick="responder(9, 'D', this)">1789.</button>
+    <div id="resultado9" class="resultado"></div>
+    <button id="proximo9" class="proximo-btn" onclick="mudarPagina('p10')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 10 -->
+<div id="p10" class="page">
+    <div class="question">
+        10. Assinale a alternativa que completa corretamente a frase:<br><br>
+        “Inicialmente, Faxinal do Soturno chamava-se ______________ e, em seguida, ____________, em virtude do encontro de vestígios ____________.”
+    </div>
+    <button class="option" onclick="responder(10, 'A', this)">Geringonça - Novo Treviso - italianos;</button>
+    <button class="option" onclick="responder(10, 'B', this)">Campos dos Bugres - Campo do Meio - alemães;</button>
+    <button class="option" onclick="responder(10, 'C', this)">Campos do Meio - Campos dos Bugres - indígenas;</button>
+    <button class="option" onclick="responder(10, 'D', this)">Campo do Meio - Campo dos Bugres - indígenas.</button>
+    <div id="resultado10" class="resultado"></div>
+    <button id="proximo10" class="proximo-btn" onclick="mudarPagina('p11')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 11 -->
+<div id="p11" class="page">
+    <div class="question">
+        11. ‘Geringonça’ foi o primeiro local onde os imigrantes italianos se instalaram. Hoje, esta localidade chama-se:
+    </div>
+    <button class="option" onclick="responder(11, 'A', this)">Sítio Alto;</button>
+    <button class="option" onclick="responder(11, 'B', this)">Novo Treviso;</button>
+    <button class="option" onclick="responder(11, 'C', this)">Linha Saxônia;</button>
+    <button class="option" onclick="responder(11, 'D', this)">Val Varonês.</button>
+    <div id="resultado11" class="resultado"></div>
+    <button id="proximo11" class="proximo-btn" onclick="mudarPagina('p12')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 12 -->
+<div id="p12" class="page">
+    <div class="question">
+        12. Elementos que auxiliaram os imigrantes italianos a superarem as adversidades em terras desconhecidas:
+    </div>
+    <button class="option" onclick="responder(12, 'A', this)">Religiosidade, trabalho, união familiar e esperança;</button>
+    <button class="option" onclick="responder(12, 'B', this)">Trabalho e desavenças religiosas;</button>
+    <button class="option" onclick="responder(12, 'C', this)">União familiar, trabalho e conflitos territoriais;</button>
+    <button class="option" onclick="responder(12, 'D', this)">Esperança, união familiar e desavenças políticas.</button>
+    <div id="resultado12" class="resultado"></div>
+    <button id="proximo12" class="proximo-btn" onclick="mudarPagina('p13')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 13 -->
+<div id="p13" class="page">
+    <div class="question">
+        13. Quem são considerados os pioneiros na fundação de Faxinal do Soturno?
+    </div>
+    <button class="option" onclick="responder(13, 'A', this)">Ângelo Bozzetto, João Batista Zago, Anselmo Cassol e Vitélio Bozzetto;</button>
+    <button class="option" onclick="responder(13, 'B', this)">João Batista Zago, Coronel José Marques, Vicente Pigatto e Vitório de David;</button>
+    <button class="option" onclick="responder(13, 'C', this)">Vicente Pigatto, Vitélio Bozzetto, João Batista Zago e Moacir Soccal;</button>
+    <button class="option" onclick="responder(13, 'D', this)">Achilles Cervo, Vitório de David, Coronel José Marques e Ângelo Bozzetto.</button>
+    <div id="resultado13" class="resultado"></div>
+    <button id="proximo13" class="proximo-btn" onclick="mudarPagina('p14')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 14 -->
+<div id="p14" class="page">
+    <div class="question">
+        14. Como se chama o rio que cruza o território municipal, do qual originou seu nome oficial:
+    </div>
+    <button class="option" onclick="responder(14, 'A', this)">Rio Jacuí;</button>
+    <button class="option" onclick="responder(14, 'B', this)">Rio Soturno;</button>
+    <button class="option" onclick="responder(14, 'C', this)">Rio Guarda Mor;</button>
+    <button class="option" onclick="responder(14, 'D', this)">Rio Santa Maria.</button>
+    <div id="resultado14" class="resultado"></div>
+    <button id="proximo14" class="proximo-btn" onclick="mudarPagina('p15')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 15 -->
+<div id="p15" class="page">
+    <div class="question">
+        15. Qual é a data de emancipação de Faxinal do Soturno?
+    </div>
+    <button class="option" onclick="responder(15, 'A', this)">30.11.1958;</button>
+    <button class="option" onclick="responder(15, 'B', this)">12.02.1958;</button>
+    <button class="option" onclick="responder(15, 'C', this)">30.11.1959;</button>
+    <button class="option" onclick="responder(15, 'D', this)">12.02.1959.</button>
+    <div id="resultado15" class="resultado"></div>
+    <button id="proximo15" class="proximo-btn" onclick="mudarPagina('p16')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 16 -->
+<div id="p16" class="page">
+    <div class="question">
+        16. A palavra ‘Soturno’, presente no nome do município, significa “lugar…:
+    </div>
+    <button class="option" onclick="responder(16, 'A', this)">… agradável e tranquilo”;</button>
+    <button class="option" onclick="responder(16, 'B', this)">… sombrio e perigoso”;</button>
+    <button class="option" onclick="responder(16, 'C', this)">… agitado e perigoso”;</button>
+    <button class="option" onclick="responder(16, 'D', this)">… sombrio e agitado”.</button>
+    <div id="resultado16" class="resultado"></div>
+    <button id="proximo16" class="proximo-btn" onclick="mudarPagina('p17')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 17 -->
+<div id="p17" class="page">
+    <div class="question">
+        17. Faxinal do Soturno emancipou-se do município de:
+    </div>
+    <button class="option" onclick="responder(17, 'A', this)">Cachoeira do Sul;</button>
+    <button class="option" onclick="responder(17, 'B', this)">Santa Maria;</button>
+    <button class="option" onclick="responder(17, 'C', this)">São João do Polêsine;</button>
+    <button class="option" onclick="responder(17, 'D', this)">Dona Francisca.</button>
+    <div id="resultado17" class="resultado"></div>
+    <button id="proximo17" class="proximo-btn" onclick="mudarPagina('p18')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 18 -->
+<div id="p18" class="page">
+    <div class="question">
+        18. Os municípios a seguir são alguns exemplos de cidades que limitam-se com Faxinal do Soturno, exceto:
+    </div>
+    <button class="option" onclick="responder(18, 'A', this)">Dona Francisca;</button>
+    <button class="option" onclick="responder(18, 'B', this)">São João do Polêsine;</button>
+    <button class="option" onclick="responder(18, 'C', this)">Nova Palma;</button>
+    <button class="option" onclick="responder(18, 'D', this)">Restinga Sêca.</button>
+    <div id="resultado18" class="resultado"></div>
+    <button id="proximo18" class="proximo-btn" onclick="mudarPagina('p19')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 19 -->
+<div id="p19" class="page">
+    <div class="question">
+        19. Os símbolos oficiais do município são:
+    </div>
+    <button class="option" onclick="responder(19, 'A', this)">arroz, bandeira e hino;</button>
+    <button class="option" onclick="responder(19, 'B', this)">bandeira, arroz e soja;</button>
+    <button class="option" onclick="responder(19, 'C', this)">bandeira, hino e brasão de armas;</button>
+    <button class="option" onclick="responder(19, 'D', this)">arroz, milho e fumo.</button>
+    <div id="resultado19" class="resultado"></div>
+    <button id="proximo19" class="proximo-btn" onclick="mudarPagina('p20')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 20 -->
+<div id="p20" class="page">
+    <div class="question">
+        20. Quais são as culturas agrícolas presentes no Brasão de Armas Municipal?
+    </div>
+    <button class="option" onclick="responder(20, 'A', this)">arroz e soja;</button>
+    <button class="option" onclick="responder(20, 'B', this)">arroz e fumo;</button>
+    <button class="option" onclick="responder(20, 'C', this)">arroz e milho;</button>
+    <button class="option" onclick="responder(20, 'D', this)">arroz e feijão.</button>
+    <div id="resultado20" class="resultado"></div>
+    <button id="proximo20" class="proximo-btn" onclick="mudarPagina('p21')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 21 -->
+<div id="p21" class="page">
+    <div class="question">
+        21. Quais são as cores presentes na Bandeira Municipal?
+    </div>
+    <button class="option" onclick="responder(21, 'A', this)">amarelo, vermelho e azul;</button>
+    <button class="option" onclick="responder(21, 'B', this)">amarelo, verde e azul;</button>
+    <button class="option" onclick="responder(21, 'C', this)">amarelo, branco e azul;</button>
+    <button class="option" onclick="responder(21, 'D', this)">amarelo, preto e azul.</button>
+    <div id="resultado21" class="resultado"></div>
+    <button id="proximo21" class="proximo-btn" onclick="mudarPagina('p22')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 22 -->
+<div id="p22" class="page">
+    <div class="question">
+        22. O Hino Municipal, em sua composição, exalta:
+    </div>
+    <button class="option" onclick="responder(22, 'A', this)">apenas as belezas naturais de Faxinal do Soturno;</button>
+    <button class="option" onclick="responder(22, 'B', this)">somente a hospitalidade do povo faxinalense;</button>
+    <button class="option" onclick="responder(22, 'C', this)">apenas a força do imigrante, ao desbravar terras desconhecidas;</button>
+    <button class="option" onclick="responder(22, 'D', this)">a força e o trabalho do imigrante desbravador, suas belezas naturais e a esperança pela prosperidade.</button>
+    <div id="resultado22" class="resultado"></div>
+    <button id="proximo22" class="proximo-btn" onclick="mudarPagina('p23')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 23 -->
+<div id="p23" class="page">
+    <div class="question">
+        23. Como se chama o padroeiro de Faxinal do Soturno, considerado protetor das doenças, dos cirurgiões e dos cães, cujas homenagens são realizadas anualmente em 16 de agosto?
+    </div>
+    <button class="option" onclick="responder(23, 'A', this)">São Marcos;</button>
+    <button class="option" onclick="responder(23, 'B', this)">Santo Isidoro;</button>
+    <button class="option" onclick="responder(23, 'C', this)">São Roque;</button>
+    <button class="option" onclick="responder(23, 'D', this)">Vicente Pallotti.</button>
+    <div id="resultado23" class="resultado"></div>
+    <button id="proximo23" class="proximo-btn" onclick="mudarPagina('p24')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 24 -->
+<div id="p24" class="page">
+    <div class="question">
+        24. Todas as alternativas a seguir apresentam o nome de localidades da zona rural de Faxinal do Soturno, exceto:
+    </div>
+    <button class="option" onclick="responder(24, 'A', this)">Linha Saxônia, Sítio Alto, Val Varonês, Colonial;</button>
+    <button class="option" onclick="responder(24, 'B', this)">Novo Treviso, Sítio dos Mellos, Linha Guarda-Mor, Linha Nova Palma;</button>
+    <button class="option" onclick="responder(24, 'C', this)">Distrito de Santos Anjos, Linha Dona Francisca, Linha São Luiz, Linha Formosa;</button>
+    <button class="option" onclick="responder(24, 'D', this)">Bairro Santo Antônio, Centro, Bairro Medianeira, Bairro Verde Teto.</button>
+    <div id="resultado24" class="resultado"></div>
+    <button id="proximo24" class="proximo-btn" onclick="mudarPagina('p25')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 25 -->
+<div id="p25" class="page">
+    <div class="question">
+        25. Qual é o prato típico regional à base de arroz:
+    </div>
+    <button class="option" onclick="responder(25, 'A', this)">Galinhada;</button>
+    <button class="option" onclick="responder(25, 'B', this)">Carreteiro;</button>
+    <button class="option" onclick="responder(25, 'C', this)">Bolinho de arroz;</button>
+    <button class="option" onclick="responder(25, 'D', this)">Risoto.</button>
+    <div id="resultado25" class="resultado"></div>
+    <button id="proximo25" class="proximo-btn" onclick="mudarPagina('p26')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 26 -->
+<div id="p26" class="page">
+    <div class="question">
+        26. Como chama-se o alimento que tem como base a fermentação natural, coberto por uma farofa doce:
+    </div>
+    <button class="option" onclick="responder(26, 'A', this)">Cuca;</button>
+    <button class="option" onclick="responder(26, 'B', this)">Pão;</button>
+    <button class="option" onclick="responder(26, 'C', this)">Bolo;</button>
+    <button class="option" onclick="responder(26, 'D', this)">Bolacha.</button>
+    <div id="resultado26" class="resultado"></div>
+    <button id="proximo26" class="proximo-btn" onclick="mudarPagina('p27')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 27 -->
+<div id="p27" class="page">
+    <div class="question">
+        27. Que expressão é utilizada para se referir à “avó” e “avô”, em italiano:
+    </div>
+    <button class="option" onclick="responder(27, 'A', this)">Vó e vô;</button>
+    <button class="option" onclick="responder(27, 'B', this)">Abuela e abuelo;</button>
+    <button class="option" onclick="responder(27, 'C', this)">Nonna e nonno;</button>
+    <button class="option" onclick="responder(27, 'D', this)">Vovó e vovô.</button>
+    <div id="resultado27" class="resultado"></div>
+    <button id="proximo27" class="proximo-btn" onclick="mudarPagina('p28')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 28 -->
+<div id="p28" class="page">
+    <div class="question">
+        28. Observe a imagem a seguir e assinale a opção que contenha o nome correto deste alimento tradicional da culinária italiana, muito apreciado em sopas:
+    </div>
+
+    <img src="pergunta28.jpg" alt="Pergunta 28" class="imagem-pergunta">
+
+    <button class="option" onclick="responder(28, 'A', this)">Agnoline;</button>
+    <button class="option" onclick="responder(28, 'B', this)">Espaguete;</button>
+    <button class="option" onclick="responder(28, 'C', this)">Ravioli;</button>
+    <button class="option" onclick="responder(28, 'D', this)">Tortelli.</button>
+    <div id="resultado28" class="resultado"></div>
+    <button id="proximo28" class="proximo-btn" onclick="mudarPagina('p29')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 29 -->
+<div id="p29" class="page">
+    <div class="question">
+        29. Qual das bebidas a seguir é produzida a partir da fermentação da uva?
+    </div>
+    <button class="option" onclick="responder(29, 'A', this)">Vinho;</button>
+    <button class="option" onclick="responder(29, 'B', this)">Cerveja;</button>
+    <button class="option" onclick="responder(29, 'C', this)">Cachaça;</button>
+    <button class="option" onclick="responder(29, 'D', this)">Chopp.</button>
+    <div id="resultado29" class="resultado"></div>
+    <button id="proximo29" class="proximo-btn" onclick="mudarPagina('p30')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 30 -->
+<div id="p30" class="page">
+    <div class="question">
+        30. Marque a frase em que a palavra destacada é uma expressão típica da região da Quarta Colônia:
+    </div>
+    <button class="option" onclick="responder(30, 'A', this)">“Mas que barbaridade, tchê! Como isso foi acontecer?”;</button>
+    <button class="option" onclick="responder(30, 'B', this)">“Uai, sô! Não estou sabendo disso…”;</button>
+    <button class="option" onclick="responder(30, 'C', this)">“Ôxe! Como você é rápido!”;</button>
+    <button class="option" onclick="responder(30, 'D', this)">“Cramento! Como pode ser tão arteiro!”.</button>
+    <div id="resultado30" class="resultado"></div>
+<button id="proximo30" class="proximo-btn" onclick="mudarPagina('p31')">
+    Próxima
+</button>
+</div>
+
+
+<!-- PERGUNTA 31 -->
+<div id="p31" class="page">
+    <div class="question">
+        31. As imagens a seguir representam alguns dos jogos que fazem parte dos momentos de lazer. Marque a opção que apresenta o nome desses jogos, respectivamente:
+    </div>
+
+    <img src="pergunta31_1.jpg" alt="Pergunta 31 - Imagem 1" class="imagem-pergunta">
+    <img src="pergunta31_2.jpg" alt="Pergunta 31 - Imagem 2" class="imagem-pergunta">
+
+    <button class="option" onclick="responder(31, 'A', this)">Boliche e cartas;</button>
+    <button class="option" onclick="responder(31, 'B', this)">Basquete e cartas;</button>
+    <button class="option" onclick="responder(31, 'C', this)">Bocha e cartas;</button>
+    <button class="option" onclick="responder(31, 'D', this)">Futebol e cartas.</button>
+    <div id="resultado31" class="resultado"></div>
+    <button id="proximo31" class="proximo-btn" onclick="mudarPagina('p32')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 32 -->
+<div id="p32" class="page">
+    <div class="question">
+        32. Analise a imagem e assinale que técnica foi utilizada para a confecção de tais objetos:
+    </div>
+
+    <img src="pergunta32_1.jpg" alt="Pergunta 32 - Imagem" class="imagem-pergunta">
+
+    <button class="option" onclick="responder(32, 'A', this)">Bordado;</button>
+    <button class="option" onclick="responder(32, 'B', this)">Dressa;</button>
+    <button class="option" onclick="responder(32, 'C', this)">Crochê;</button>
+    <button class="option" onclick="responder(32, 'D', this)">Tricô.</button>
+    <div id="resultado32" class="resultado"></div>
+    <button id="proximo32" class="proximo-btn" onclick="mudarPagina('p33')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 33 -->
+<div id="p33" class="page">
+    <div class="question">
+        33. As imagens abaixo representam pratos típicos regionais. Marque a opção em que há a matéria-prima destes pratos, respectivamente.
+    </div>
+
+    <img src="pergunta33_1.jpg" alt="Pergunta 33 - Imagem 1" class="imagem-pergunta">
+    <img src="pergunta33_2.jpg" alt="Pergunta 33 - Imagem 2" class="imagem-pergunta">
+    <img src="pergunta33_3.jpg" alt="Pergunta 33 - Imagem 3" class="imagem-pergunta">
+    <img src="pergunta33_4.jpg" alt="Pergunta 33 - Imagem 4" class="imagem-pergunta">
+
+    <button class="option" onclick="responder(33, 'A', this)">Leite, carne de porco, milho e ovos;</button>
+    <button class="option" onclick="responder(33, 'B', this)">Leite, carne de frango, farinha de trigo e ovos;</button>
+    <button class="option" onclick="responder(33, 'C', this)">Iogurte, carne de gado, farinha de milho e ovos;</button>
+    <button class="option" onclick="responder(33, 'D', this)">Iogurte, carne de porco, farinha de trigo e ovos.</button>
+    <div id="resultado33" class="resultado"></div>
+    <button id="proximo33" class="proximo-btn" onclick="mudarPagina('p34')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 34 -->
+<div id="p34" class="page">
+    <div class="question">
+        34. Em terras faxinalenses há a presença de:
+    </div>
+    <button class="option" onclick="responder(34, 'A', this)">3 geossítios e 1 sítio;</button>
+    <button class="option" onclick="responder(34, 'B', this)">3 geossítios e 2 sítios;</button>
+    <button class="option" onclick="responder(34, 'C', this)">3 geossítios e 3 sítios;</button>
+    <button class="option" onclick="responder(34, 'D', this)">3 geossítios e 4 sítios.</button>
+    <div id="resultado34" class="resultado"></div>
+    <button id="proximo34" class="proximo-btn" onclick="mudarPagina('p35')">Próxima</button>
+</div>
+
+<!-- PERGUNTA 35 -->
+<div id="p35" class="page">
+    <div class="question">
+        35. Assinale a opção que preencha corretamente as lacunas do trecho abaixo:
+        <br><br>
+        “As ________________ são eventos realizados anualmente pelas localidades do interior, tendo como principal objetivo _________ seu padroeiro. Nessas festas, há a realização de _________, seguida de almoço com ______________ da gastronomia local e _____________ à tarde. São momentos especiais, onde ____________ de várias gerações se reúnem em torno da ____________ e da ______________”.
+    </div>
+
+    <button class="option" onclick="responder(35, 'A', this)">Missa - honrar - festas comunitárias - reunião dançante - pratos típicos - religiosidade - cultura - famílias;</button>
+    <button class="option" onclick="responder(35, 'B', this)">Cultura - religiosidade - famílias - reunião dançante - pratos típicos - missa - honrar - festas comunitárias;</button>
+    <button class="option" onclick="responder(35, 'C', this)">Pratos típicos - reunião dançante - famílias - religiosidade - cultura - festas comunitárias - honrar - missa;</button>
+    <button class="option" onclick="responder(35, 'D', this)">Festas comunitárias - honrar - missa - pratos típicos - reunião dançante - famílias - religiosidade - cultura.</button>
+   <button class="option" onclick="responder(35, 'D', this)">
+Festas comunitárias - honrar - missa - pratos típicos - reunião dançante - famílias - religiosidade - cultura.
+</button>
+
+<div id="resultado35" class="resultado"></div>
+
+<button id="proximo35" class="proximo-btn" onclick="finalizarQuiz()">
+    Finalizar
+</button>
+
+
+
+</button>
+
+
+</div>
+
+<!-- TELA FINAL -->
+<div id="final" class="page">
+
+    <h1>🎉 Parabéns!</h1>
+
+    <h2 id="pontuacaoFinal"></h2>
+
+    <button class="proximo-btn" onclick="reiniciarQuiz()" style="display:block;">
+        Jogar Novamente
+    </button>
+
+</div>
+
+
+<script>
+let acertos = 0;
+
+function finalizarQuiz() {
+    document.getElementById("pontuacaoFinal").innerText =
+        "Você acertou " + acertos + " de 35 perguntas!";
+
+    mudarPagina("final");
+}
+
+function reiniciarQuiz() {
+    acertos = 0;
+    mudarPagina("inicio");
+}
+
+
+const respostasCorretas = {
+1:'C',
+2:'B',
+3:'D',
+4:'A',
+5:'C',
+6:'B',
+7:'D',
+8:'C',
+9:'A',
+10:'D',
+11:'B',
+12:'A',
+13:'B',
+14:'B',
+15:'D',
+16:'B',
+17:'A',
+18:'D',
+19:'C',
+20:'B',
+21:'A',
+22:'D',
+23:'C',
+24:'D',
+25:'D',
+26:'A',
+27:'C',
+28:'A',
+29:'A',
+30:'D',
+31:'C',
+32:'B',
+33:'A',
+34:'B',
+35:'D',
+};
+
+function mudarPagina(id) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function responder(numero, alternativa, botao){
+
+    const correta = respostasCorretas[numero];
+    const botoes = botao.parentElement.querySelectorAll(".option");
+    const resultado = document.getElementById("resultado"+numero);
+
+    botoes.forEach((b,i)=>{
+        const letra = String.fromCharCode(65+i);
+
+        if(letra === correta){
+            b.style.background = "#1f7a1f";
+        }
+
+        b.disabled = true;
+    });
+
+    if(alternativa !== correta){
+        botao.style.background = "#a30000";
+        resultado.innerHTML = "❌ Resposta errada!";
+        resultado.style.background = "#a30000";
+    } else {
+    acertos++; // 👈 ADICIONE ISSO AQUI
+
+    resultado.innerHTML = "✅ Resposta correta!";
+    resultado.style.background = "#1f7a1f";
+
+    }
+
+    resultado.style.display = "block";
+
+    const prox = document.getElementById("proximo"+numero);
+    if(prox) prox.style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
