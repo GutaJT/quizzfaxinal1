@@ -6,10 +6,19 @@
 <title>Quiz</title>
 
 <style>
+
+.question {
+    background-color: #212020;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
 .imagens-container {
     display: grid;
     gap: 12px;
     margin: 15px 0;
+
 }
 
 /* Quando tiver 2 imagens (ex: pergunta 31) */
@@ -28,6 +37,7 @@
     height: 160px;
     object-fit: cover;
     border-radius: 12px;
+
 }
 
 /* Responsivo para telas maiores */
@@ -66,7 +76,7 @@ body {
 .quiz-container {
     width: 820px;
     max-width: 95%;
-    background: rgba(0, 0, 0, 0.88);
+    background: transparent;
     padding: 45px;
     border-radius: 30px;
     text-align: center;
@@ -136,8 +146,11 @@ button.option {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 50px 30px;
     text-align: center;
+
+    background-color: #212020;
+    border-radius: 25px;
 }
 
 #inicio.active {
@@ -147,6 +160,7 @@ button.option {
 
 .titulo-quiz {
     margin-bottom: 10px;
+
 }
 
 .nome-jogo {
