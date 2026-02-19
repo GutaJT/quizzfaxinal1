@@ -611,10 +611,10 @@ button.option {
     <div class="question">
         30. Marque a frase em que a palavra destacada é uma expressão típica da região da Quarta Colônia:
     </div>
-    <button class="option" onclick="responder(30, 'A', this)">“Mas que barbaridade, tchê! Como isso foi acontecer?”;</button>
-    <button class="option" onclick="responder(30, 'B', this)">“Uai, sô! Não estou sabendo disso…”;</button>
-    <button class="option" onclick="responder(30, 'C', this)">“Ôxe! Como você é rápido!”;</button>
-    <button class="option" onclick="responder(30, 'D', this)">“Cramento! Como pode ser tão arteiro!”.</button>
+    <button class="option" onclick="responder(30, 'A', this)">“Mas que <u>barbaridade</u>, tchê! Como isso foi acontecer?”;</button>
+    <button class="option" onclick="responder(30, 'B', this)">“<u>Uai</u>, <u>sô</u>! Não estou sabendo disso…”;</button>
+    <button class="option" onclick="responder(30, 'C', this)">“<u>Ôxe</u>! Como você é rápido!”;</button>
+    <button class="option" onclick="responder(30, 'D', this)">“<u>Cramento</u>! Como pode ser tão arteiro!”.</button>
     <div id="resultado30" class="resultado"></div>
 <button id="proximo30" class="proximo-btn" onclick="mudarPagina('p31')">
     Próxima
@@ -832,6 +832,7 @@ function responder(numero, alternativa, botao){
 
 </body>
 </html>
+
 
 
 
