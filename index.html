@@ -159,12 +159,19 @@ button.option {
     display: flex;
 }
     
-#resultado {
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 25px;
+#final {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 50px 30px;
     text-align: center;
-    max-width: 800px;
+
+    background-color: rgba(33, 32, 32, 0.7);
+    border-radius: 25px;
+}
+
+#final.active {
+    display: flex;
 }
 
 .titulo-quiz {
@@ -857,6 +864,7 @@ function responder(numero, alternativa, botao){
 
 </body>
 </html>
+
 
 
 
