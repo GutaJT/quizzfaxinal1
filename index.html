@@ -779,7 +779,26 @@ function finalizarQuiz() {
 
 function reiniciarQuiz() {
     acertos = 0;
+
+    // Resetar todos os botões
+    document.querySelectorAll(".option").forEach(botao => {
+        botao.disabled = false;
+        botao.style.background = "rgba(33, 32, 32, 0.75)";
+    });
+
+    // Esconder resultados
+    document.querySelectorAll(".resultado").forEach(res => {
+        res.style.display = "none";
+        res.innerHTML = "";
+    });
+
+    // Esconder botões Próximo
+    document.querySelectorAll(".proximo-btn").forEach(btn => {
+        btn.style.display = "none";
+    });
+
     mudarPagina("inicio");
+}
 }
 
 
@@ -864,6 +883,7 @@ function responder(numero, alternativa, botao){
 
 </body>
 </html>
+
 
 
 
